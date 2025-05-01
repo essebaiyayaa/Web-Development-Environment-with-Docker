@@ -1,23 +1,22 @@
 #!/bin/bash
 
-# Copy .env if missing
+# Copier .env si absent
 [ ! -f .env ] && cp .env.example .env
 
-# Wait for MySQL to be REALLY ready (not just accepting connections)
-echo "Waiting for MySQL to start..."
-timeout=30
-while ! mysqladmin ping -h mysql --silent; do
-    sleep 1
-    timeout=$((timeout - 1))
-    if [ $timeout -le 0 ]; then
-        echo "MySQL did not start in time!"
-        exit 1
-    fi
-done
-echo "MySQL is ready!"
+# Attente de MySQL prêt
+echo "⏳ Waiting for MySQL to be ready..."
 
-# Run migrations
+until mysql -h mysql -uuser -puserpass -e "SELECT 1;" &>/dev/null
+do
+  echo "⏱ MySQL not ready yet – sleeping..."
+  sleep 3
+done
+
+echo "✅ MySQL is ready!"
+
+# Lancer les migrations (en mode force pour prod)
 php artisan migrate --force
 
-# Start Apache
+# Démarrer Apache
 exec apache2-foreground
+

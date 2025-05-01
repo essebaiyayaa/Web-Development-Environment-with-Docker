@@ -1,0 +1,8 @@
+node_modules/
+vendor/
+.env
+storage/*.log
+storage/framework/*
+.idea/
+.DS_Store
+docker-entrypoint-initdb.d/*

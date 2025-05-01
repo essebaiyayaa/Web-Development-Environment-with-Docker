@@ -8,8 +8,8 @@ services:
     ports:
       - "8000:80"
     volumes:
-      - ./backend/php:/var/www/html 
-      - vendor_data:/var/www/html/vendor
+    - ./backend/laravel:/var/www/html
+    - vendor_data:/var/www/html/vendor
     depends_on:
       - mysql
     networks:
@@ -35,7 +35,7 @@ services:
     #image: oumaima158/restaurant-mysql:v1
     build:
       context: ./mysql
-      dockerfile: dockerfile
+      dockerfile: Dockerfile
     container_name: mysql
     ports:
       - "3306:3306"
@@ -43,6 +43,11 @@ services:
       - db_data:/var/lib/mysql
     networks:
       - webapp
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: restaurant
+      MYSQL_USER: user
+      MYSQL_PASSWORD: userpass
       
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
