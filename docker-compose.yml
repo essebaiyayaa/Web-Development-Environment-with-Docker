@@ -1,6 +1,5 @@
 services:
   backend:
-    #image: oumaima158/Rest-backend:v4
     build:
       context: ./backend/laravel
       dockerfile: Dockerfile
@@ -8,46 +7,36 @@ services:
     ports:
       - "8000:80"
     volumes:
-    - ./backend/laravel:/var/www/html
-    - vendor_data:/var/www/html/vendor
+      - vendor_data:/var/www/html/vendor
     depends_on:
       - mysql
     networks:
       - webapp
       
   frontend:
-    #image: oumaima158/hotel-frontend:latest
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
+    image: nouha564/restaurant-frontend:latest
     container_name: frontend
     environment:
-    - CHOKIDAR_USEPOLLING=true
+      - CHOKIDAR_USEPOLLING=true
     ports:
       - "4300:4200"
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
     networks:
       - webapp
 
   mysql:
-    #image: oumaima158/restaurant-mysql:v1
-    build:
-      context: ./mysql
-      dockerfile: Dockerfile
+    image: nouha564/restaurant-mysql:latest
     container_name: mysql
     ports:
       - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
-    networks:
-      - webapp
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: restaurant
       MYSQL_USER: user
       MYSQL_PASSWORD: userpass
+    networks:
+      - webapp
       
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -61,6 +50,7 @@ services:
       - mysql
     networks:
       - webapp 
+
 networks:
   webapp:
     driver: bridge

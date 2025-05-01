@@ -29,6 +29,9 @@ RUN composer install --no-dev --no-scripts --optimize-autoloader
 # Copier le reste de l'application
 COPY . .
 
+# Copie le .env.example
+COPY .env.example .env
+
 # Copier le script d’entrée
 COPY ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
