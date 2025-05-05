@@ -2,43 +2,56 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Pearl Restaurant</title>
+    <title>THE PEARL</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Nos Plats</h1>
-        <div id="plats-list" class="plats-grid"></div>
-    </div>
-
-    <!-- Modal de commande -->
-    <div id="order-modal" class="modal" style="display:none;">
-        <div class="modal-content">
-            <span class="close" id="close-modal">&times;</span>
-            <h2 id="modal-plat-nom"></h2>
-            <form id="order-form">
-                <input type="hidden" id="plat-id">
-                <div class="form-group">
-                    <label for="client-nom">Nom complet *</label>
-                    <input type="text" id="client-nom" required>
-                </div>
-                <div class="form-group">
-                    <label for="client-email">Email *</label>
-                    <input type="email" id="client-email" required>
-                </div>
-                <div class="form-group">
-                    <label for="client-telephone">Téléphone *</label>
-                    <input type="text" id="client-telephone" required>
-                </div>
-                <div class="form-group">
-                    <label for="client-adresse">Adresse de livraison *</label>
-                    <input type="text" id="client-adresse" required>
-                </div>
-                <button type="submit" class="cta-button">Commander</button>
-            </form>
+    <header>
+        <div class="header-content">
+            <span class="logo">THE PEARL</span>
+            <button id="btn-panier" class="panier-btn">
+                Panier <span id="panier-badge"></span>
+            </button>
         </div>
-    </div>
+    </header>
+    <main>
+        <div id="accueil">
+            <h1>Bienvenue chez THE PEARL</h1>
+            <div id="menu-sections"></div>
+        </div>
+        <div id="panier-page" style="display:none">
+            <button id="btn-accueil" class="back-btn">← Retour au menu</button>
+            <h2>Votre Panier</h2>
+            <div class="panier-flex">
+                <div class="panier-left">
+                    <div id="panier-contenu"></div>
+                </div>
+                <div class="panier-right">
+                    <form id="order-form">
+                        <h3>Finaliser votre commande</h3>
+                        <div class="form-group">
+                            <label for="client-nom">Nom complet *</label>
+                            <input type="text" id="client-nom" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="client-email">Email *</label>
+                            <input type="email" id="client-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="client-telephone">Téléphone *</label>
+                            <input type="text" id="client-telephone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="client-adresse">Adresse de livraison *</label>
+                            <input type="text" id="client-adresse" required>
+                        </div>
+                        <button type="submit" class="cta-button">Commander</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
     <script src="js/main.js"></script>
 </body>
 </html> 
