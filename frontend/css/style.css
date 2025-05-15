@@ -163,7 +163,7 @@ h1 {
     }
 }
 
-/* Header et Navigation */
+/* Header et Navigation section */
 header {
     background-color: var(--primary-color);
     padding: 1rem 0;
@@ -204,7 +204,7 @@ nav ul li a:hover {
     color: var(--secondary-color);
 }
 
-/* Section Hero */
+/*  Hero section */
 .hero {
     height: 100vh;
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
@@ -238,7 +238,7 @@ nav ul li a:hover {
     background-color: #c0392b;
 }
 
-/* Section Menu */
+/* Menu section */
 .menu-section {
     padding: 5rem 2rem;
     background-color: var(--light-bg);
