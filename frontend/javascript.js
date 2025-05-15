@@ -16,7 +16,7 @@ async function loadPlats() {
     }
 }
 
-// Fonction pour afficher le menu
+//  afficher le menu
 function displayPlats() {
     const platsList = document.getElementById('plats-list');
     platsList.innerHTML = '';
