@@ -27,7 +27,7 @@ if (!empty($data->items) && !empty($data->client)) {
         $stmt->execute();
         $client_id = $db->lastInsertId();
 
-        // Calcul du total
+        // Calcul 
         $total = 0;
         foreach ($data->items as $item) {
             $total += $item->prix * $item->quantity;
