@@ -269,7 +269,7 @@ nav ul li a:hover {
     margin-bottom: 1rem;
 }
 
-/* Footer */
+/* Footer section */
 footer {
     background-color: var(--primary-color);
     color: var(--white);
@@ -284,7 +284,7 @@ footer {
     gap: 2rem;
 }
 
-/* Responsive Design */
+/* Responsive Dessign */
 @media (max-width: 768px) {
     nav {
         flex-direction: column;
