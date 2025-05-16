@@ -16,7 +16,7 @@ async function loadPlats() {
     }
 }
 
-// Fonction pour afficher le menu
+//  afficher le menu
 function displayPlats() {
     const platsList = document.getElementById('plats-list');
     platsList.innerHTML = '';
@@ -38,7 +38,7 @@ function displayPlats() {
     });
 }
 
-// Fonction pour ouvrir le formulaire de commande pour un plat
+// Fonction pour ouvrir le formulaire de commande pour un plat de menu 
 function openOrderModal(platId) {
     selectedPlat = plats.find(p => p.id === platId);
     if (!selectedPlat) return;
