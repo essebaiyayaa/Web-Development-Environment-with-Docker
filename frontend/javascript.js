@@ -38,7 +38,7 @@ function displayPlats() {
     });
 }
 
-// Fonction pour ouvrir le formulaire de commande pour un plat
+// Fonction pour ouvrir le formulaire de commande pour un plat de menu 
 function openOrderModal(platId) {
     selectedPlat = plats.find(p => p.id === platId);
     if (!selectedPlat) return;
