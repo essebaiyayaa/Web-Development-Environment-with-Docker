@@ -1,0 +1,88 @@
+# Nom du workflow
+name: CI for Laravel + Angular
+
+# Déclenche le workflow à chaque push ou pull request sur la branche main
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest   # Utilise une VM Ubuntu GitHub pour exécuter le job
+
+    services:
+      mysql:
+        image: mysql:8   # Démarre un conteneur MySQL pour les tests Laravel
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: restaurant
+          MYSQL_USER: user
+          MYSQL_PASSWORD: userpass
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping --silent"  # Vérifie que MySQL est prêt
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      # Récupère le code source du dépôt GitHub
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+      # Installe Node.js version 20 pour construire le frontend Angular
+
+    - name: Install Angular dependencies
+      working-directory: ./frontend
+      run: |
+        npm install
+      # Installe les dépendances du projet Angular
+
+    - name: Run Angular build
+      working-directory: ./frontend
+      run: |
+        npm run build
+      # Compile le projet Angular pour détecter les erreurs de compilation
+
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2'
+      # Configure l’environnement PHP 8.2
+
+    - name: Install PHP dependencies
+      working-directory: ./backend/laravel
+      run: composer install --no-interaction
+      # Installe les dépendances Laravel via Composer
+
+    - name: Copy .env and generate key
+      working-directory: ./backend/laravel
+      run: |
+        cp .env.example .env
+        php artisan key:generate
+      # Prépare le fichier .env pour Laravel et génère la clé d’application
+
+    - name: Run Laravel migrations
+      working-directory: ./backend/laravel
+      env:
+        DB_HOST: 127.0.0.1         # Utilise l’hôte localhost (le service MySQL)
+        DB_PORT: 3306
+        DB_DATABASE: restaurant
+        DB_USERNAME: user
+        DB_PASSWORD: userpass
+      run: |
+        php artisan migrate --force
+      # Lance les migrations Laravel pour créer les tables nécessaires
+
+    - name: Run PHP tests
+      working-directory: ./backend/laravel
+      run: |
+        ./vendor/bin/phpunit
+      # Exécute les tests unitaires PHP avec PHPUnit (corrigé : `phpunit` au lieu de `phpunits`)
